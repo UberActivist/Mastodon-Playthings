@@ -17,7 +17,7 @@ def xkcd_loop():
         stuff = json.load(data)
         if xkcd.get_latest_id() > stuff["xkcd"]["last_comic_seen"]:
             print("New comic found, tooting...")
-            new_comic = xkcd.get_latest_comic()
+            new_comic = xkcd.get_comic(stuff["xkcd"]["last_comic_seen"] + 1)
             status = "xkcd {} was just posted...\n{}\nLink: https://xkcd.com/{}".format(str(new_comic["num"]), new_comic["title"], str(new_comic["num"]))
             mastodon.status_post(status)
             print("Toot sent")
@@ -25,8 +25,8 @@ def xkcd_loop():
             update_and_save(stuff)
             print("Pushing update to local file.")
         else:
-            print("No new comic found. Checking again in 5 minutes.")
-    time.sleep(300)
+            print("No new comic found. Checking again in 30 seconds.")
+    time.sleep(30)
     xkcd_loop()
 
 threading.Thread(target=xkcd_loop).start()
