@@ -18,7 +18,7 @@ def xkcd_loop():
         if xkcd.get_latest_id() > stuff["xkcd"]["last_comic_seen"]:
             print("New comic found, tooting...")
             new_comic = xkcd.get_comic(stuff["xkcd"]["last_comic_seen"] + 1)
-            status = "xkcd {} was just posted...\n{}\nLink: https://xkcd.com/{}".format(str(new_comic["num"]), new_comic["title"], str(new_comic["num"]))
+            status = "xkcd {} was just found...\n{}\nLink: https://xkcd.com/{}".format(str(new_comic["num"]), new_comic["title"], str(new_comic["num"]))
             mastodon.status_post(status)
             print("Toot sent")
             stuff["xkcd"]["last_comic_seen"] += 1
